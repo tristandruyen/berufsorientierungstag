@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require "berufsorientierungstag/version"
 
 module Berufsorientierungstag
