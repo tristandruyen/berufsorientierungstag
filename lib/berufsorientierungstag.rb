@@ -3,17 +3,20 @@ require "berufsorientierungstag/version"
 
 module Berufsorientierungstag
   require 'gosu'
+  require 'spielfeld'
 
   class MainWindow < Gosu::Window
     def initialize
       super(800, 600)
       self.caption = 'Hello World!'
+      @feld = Spielfeld.new
     end
 
     def update
     end
 
     def draw
+      @feld.draw
     end
   end
 
