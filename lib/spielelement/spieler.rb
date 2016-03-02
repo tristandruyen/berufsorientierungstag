@@ -1,3 +1,4 @@
+TILESIZE = 40
 class Spieler < SpielElement
   def initialize(*args)
     super(*args)
@@ -28,6 +29,16 @@ class Spieler < SpielElement
   private
 
   attr_reader :angle
+
+  def init_sprite
+    @sprite = Gosu.record(TILESIZE, TILESIZE) do
+      draw_triangle(TILESIZE / 10, TILESIZE / 10, random_color, TILESIZE * 9 / 10, TILESIZE / 2, random_color, TILESIZE / 10, TILESIZE + 9 / 10, random_color)
+    end
+  end
+
+  def draw_triangle(x1, y1, c1, x2, y2, c2, x3, y3, c3)
+    Gosu.draw_quad(x1, y1, c1, x2, y2, c2, x3, y3, c3, x3, y3, c3)
+  end
 
   def next_pos
     x_mov, y_mov = 0, 0 # rubocop:disable Style/ParallelAssignment

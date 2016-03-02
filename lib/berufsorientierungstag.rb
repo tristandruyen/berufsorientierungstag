@@ -18,6 +18,7 @@ module Berufsorientierungstag
     def update
       @spieler.vor!
       @spieler.dreh_rechts! unless @spieler.vorne_frei?
+      sleep 0.2
     end
 
     def draw

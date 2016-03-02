@@ -11,7 +11,7 @@ class SpielElement
   end
 
   def draw
-    sprite.draw_rot(calc_cord(x_pos), calc_cord(y_pos), 1, 0)
+    sprite.draw_rot(calc_cord(x_pos), calc_cord(y_pos), 1, @angle || 0)
   end
 
   private
