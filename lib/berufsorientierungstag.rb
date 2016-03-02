@@ -9,7 +9,7 @@ module Berufsorientierungstag
     def initialize
       super(800, 800)
       self.caption = 'Hello World!'
-      @feld = Spielfeld.new
+      @feld = GameObjectRepository.new
     end
 
     def update
