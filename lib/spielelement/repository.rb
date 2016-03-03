@@ -7,7 +7,11 @@ class SpielElementRepository
   end
 
   def edit_mouse_click(x, y)
-    build_block((x / TILESIZE).to_i, (y / TILESIZE).to_i)
+    build_block(mouse_cord(x).to_i, mouse_cord(y).to_i)
+  end
+
+  def edit_mouse_click_right(x, y)
+    remove_block(mouse_cord(x).to_i, mouse_cord(y).to_i)
   end
 
   def import_map(path)
@@ -54,11 +58,27 @@ class SpielElementRepository
     build_wall(0, 19, 19, 19)
   end
 
-  def load_map
+  def mouse_cord(x)
+    x / TILESIZE
+  end
+
+  def block_exists?(x, y)
+    game_objects.each do |object|
+      return true if x.eql?(object.x_pos) && y.eql?(object.y_pos)
+    end
+    false
   end
 
   def build_block(x, y)
-    game_objects << SpielElement.new(x, y, repo: self)
+    game_objects << SpielElement.new(x, y, repo: self) \
+      unless block_exists?(x, y)
+  end
+
+  def remove_block(x, y)
+    game_objects.each do |object|
+      game_objects.delete(object) if x.eql?(object.x_pos) &&
+                                     y.eql?(object.y_pos)
+    end
   end
 
   def iterate_field(x1, x2, y1, y2)

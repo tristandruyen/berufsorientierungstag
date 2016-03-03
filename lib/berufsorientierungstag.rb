@@ -24,10 +24,17 @@ module Berufsorientierungstag
     end
 
     def update
-      @spieler.call unless @edit_mode
       @edit_mode = !@edit_mode if Gosu.button_down?(Gosu::KbE)
-      @repo.edit_mouse_click(mouse_x, mouse_y) \
-        if @edit_mode && Gosu.button_down?(Gosu::MsLeft)
+
+      if @edit_mode
+        if Gosu.button_down?(Gosu::MsLeft)
+          @repo.edit_mouse_click(mouse_x, mouse_y)
+        elsif Gosu.button_down?(Gosu::MsRight)
+          @repo.edit_mouse_click_right(mouse_x, mouse_y)
+        end
+      else
+        @spieler.call
+      end
     end
 
     def draw
