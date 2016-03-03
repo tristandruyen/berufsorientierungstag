@@ -5,10 +5,7 @@ class Spieler < SpielElement
   end
 
   def call
-    vor! if vorne_frei?
-    dreh_links! unless vorne_frei?
-    vor! if vorne_frei?
-    dreh_rechts! rand(3) unless vorne_frei?
+    dreh_links! unless vor!
   end
 
   def vor!

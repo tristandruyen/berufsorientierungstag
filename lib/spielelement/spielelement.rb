@@ -15,7 +15,6 @@ class SpielElement
 
   attr_accessor :sprite
   attr_writer :x_pos, :y_pos, :repository
-
   def init_sprite
     self.sprite = Gosu.record(TILESIZE, TILESIZE) do
       Gosu.draw_rect(TILESIZE / 10, TILESIZE / 10,
@@ -25,7 +24,7 @@ class SpielElement
   end
 
   def calc_cord(cord)
-    (cord * TILESIZE) + BORDER
+    (cord * TILESIZE) + TILESIZE / 2 #+ BORDER
   end
 
   def random_color

@@ -6,6 +6,10 @@ class SpielElementRepository
     init_walls
   end
 
+  def edit_mouse_click(x, y)
+    build_block((x / TILESIZE).to_i, (y / TILESIZE).to_i)
+  end
+
   def import_map(path)
     init_walls
     walls = JSON.parse(File.read(path))['walls']
@@ -19,10 +23,10 @@ class SpielElementRepository
   def export_map(path)
     arr = []
     game_objects.each do |object|
-      next if object.class!=SpielElement
-      arr << {x: object.x_pos, y: object.y_pos}
+      next if object.class != SpielElement
+      arr << { x: object.x_pos, y: object.y_pos }
     end
-    file=File.open("#{path}#{Time.now}_map.json", 'w+')
+    file = File.open("#{path}#{Time.now}_map.json", 'w+')
     file.write(JSON.pretty_generate(arr, object_nl: ''))
     file.close
   end
@@ -36,6 +40,7 @@ class SpielElementRepository
       build_block(n_1, n_2)
     end
   end
+
   private
 
   def init_walls
@@ -51,7 +56,6 @@ class SpielElementRepository
 
   def load_map
   end
-
 
   def build_block(x, y)
     game_objects << SpielElement.new(x, y, repo: self)

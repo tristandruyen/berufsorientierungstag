@@ -2,7 +2,7 @@ require 'bundler/setup'
 require 'berufsorientierungstag/version'
 
 TILESIZE = 40
-BORDER = 17.5
+BORDER = 20
 module Berufsorientierungstag
   require 'gosu'
   require 'spielelement/spielelement'
@@ -20,7 +20,11 @@ module Berufsorientierungstag
     end
 
     def update
-      @spieler.call
+      @spieler.call unless @edit_mode
+      @edit_mode = !@edit_mode if Gosu.button_down?(Gosu::KbE)
+      puts @edit_mode.inspect
+      @repo.edit_mouse_click(mouse_x, mouse_y) \
+        if @edit_mode && Gosu.button_down?(Gosu::MsLeft)
     end
 
     def draw
