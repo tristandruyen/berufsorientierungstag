@@ -1,4 +1,3 @@
-TILESIZE = 40
 class Spieler < SpielElement
   def initialize(*args)
     super(*args)
@@ -6,8 +5,10 @@ class Spieler < SpielElement
   end
 
   def call
-    vor!
-    dreh_rechts! unless vorne_frei?
+    vor! if vorne_frei?
+    dreh_links! unless vorne_frei?
+    vor! if vorne_frei?
+    dreh_rechts! rand(3) unless vorne_frei?
   end
 
   def vor!
@@ -21,13 +22,13 @@ class Spieler < SpielElement
     true
   end
 
-  def dreh_links!
-    @angle -= 90
+  def dreh_links!(times = 1)
+    @angle -= 90 * times
     @angle %= 360
   end
 
-  def dreh_rechts!
-    @angle += 90
+  def dreh_rechts!(times = 1)
+    @angle += 90 * times
     @angle %= 360
   end
 

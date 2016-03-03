@@ -1,6 +1,3 @@
-TILESIZE = 40
-BORDER = 17.5
-
 class SpielElement
   attr_reader :x_pos, :y_pos, :repository
   def initialize(x = 1, y = 1, repo:)

@@ -1,6 +1,8 @@
 require 'bundler/setup'
 require 'berufsorientierungstag/version'
 
+TILESIZE = 40
+BORDER = 17.5
 module Berufsorientierungstag
   require 'gosu'
   require 'spielelement/spielelement'
@@ -12,7 +14,9 @@ module Berufsorientierungstag
       super(800, 800)
       self.caption = 'Invision BOT'
       @repo = SpielElementRepository.new
+      @repo.import_map('maps/test.json')
       @repo.game_objects << @spieler = Spieler.new(1, 1, repo: @repo)
+      @repo.export_map('maps/')
     end
 
     def update
