@@ -15,6 +15,7 @@ module Berufsorientierungstag
       self.caption = 'Invision BOT'
       @repo = SpielElementRepository.new
       @repo.import_map('maps/test.json')
+      # TODO: Refactor class so that the repo stores player inside own var
       @repo.game_objects << @spieler = Spieler.new(1, 1, repo: @repo)
       # @repo.export_map('maps/')
     end

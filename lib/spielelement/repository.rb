@@ -3,6 +3,7 @@ class SpielElementRepository
   attr_accessor :feld, :game_objects
   def initialize
     self.feld = Array.new(20) { Array.new(20, nil) }
+    # TODO: Refactor class so that the repo stores player inside own var
     init_walls
   end
 
