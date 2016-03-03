@@ -10,7 +10,7 @@ module Berufsorientierungstag
   class MainWindow < Gosu::Window
     def initialize
       super(800, 800)
-      self.caption = 'Hello World!'
+      self.caption = 'Invision BOT'
       @repo = SpielElementRepository.new
       @repo.game_objects << @spieler = Spieler.new(1, 1, repo: @repo)
     end
