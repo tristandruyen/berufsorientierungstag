@@ -5,6 +5,11 @@ class Spieler < SpielElement
     @angle = 0
   end
 
+  def call
+    vor!
+    dreh_rechts! unless vorne_frei?
+  end
+
   def vor!
     self.x_pos, self.y_pos = next_pos if vorne_frei?
   end
@@ -41,11 +46,11 @@ class Spieler < SpielElement
     end
   end
 
-  # rubocop:disable Style/ParameterLists
+  # rubocop:disable Metrics/ParameterLists
   def draw_triangle(x1, y1, c1, x2, y2, c2, x3, y3, c3)
     Gosu.draw_quad(x1, y1, c1, x2, y2, c2, x3, y3, c3, x3, y3, c3)
   end
-  # rubocop:enable Style/ParameterLists
+  # rubocop:enable Metrics/ParameterLists
 
   def next_pos
     x_mov, y_mov = 0, 0 # rubocop:disable Style/ParallelAssignment

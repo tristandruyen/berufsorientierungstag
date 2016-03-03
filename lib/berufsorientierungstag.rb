@@ -16,8 +16,7 @@ module Berufsorientierungstag
     end
 
     def update
-      @spieler.vor!
-      @spieler.dreh_rechts! unless @spieler.vorne_frei?
+      @spieler.call
     end
 
     def draw

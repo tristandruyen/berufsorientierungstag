@@ -21,7 +21,9 @@ class SpielElement
 
   def init_sprite
     self.sprite = Gosu.record(TILESIZE, TILESIZE) do
-      Gosu.draw_rect(5, 5, TILESIZE - 5, TILESIZE - 5, random_color)
+      Gosu.draw_rect(TILESIZE / 10, TILESIZE / 10,
+                     TILESIZE * 9 / 10, TILESIZE * 9 / 10,
+                     random_color)
     end
   end
 
