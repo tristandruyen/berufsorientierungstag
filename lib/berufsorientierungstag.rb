@@ -16,13 +16,16 @@ module Berufsorientierungstag
       @repo = SpielElementRepository.new
       @repo.import_map('maps/test.json')
       @repo.game_objects << @spieler = Spieler.new(1, 1, repo: @repo)
-      @repo.export_map('maps/')
+      # @repo.export_map('maps/')
+    end
+
+    def needs_cursor?
+      @edit_mode
     end
 
     def update
       @spieler.call unless @edit_mode
       @edit_mode = !@edit_mode if Gosu.button_down?(Gosu::KbE)
-      puts @edit_mode.inspect
       @repo.edit_mouse_click(mouse_x, mouse_y) \
         if @edit_mode && Gosu.button_down?(Gosu::MsLeft)
     end
