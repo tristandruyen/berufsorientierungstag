@@ -1,8 +1,9 @@
 require 'json'
 class SpielElementRepository
-  attr_accessor :feld, :game_objects
+  attr_accessor :feld, :game_objects, :players
   def initialize
     self.feld = Array.new(20) { Array.new(20, nil) }
+    self.players = []
     # TODO: Refactor class so that the repo stores player inside own var
     init_walls
   end
@@ -39,6 +40,7 @@ class SpielElementRepository
 
   def draw_all
     game_objects.each(&:draw)
+    players.each(&:draw)
   end
 
   def build_wall(x1, x2, y1, y2)
@@ -54,10 +56,10 @@ class SpielElementRepository
     # iterate_field(0, 0, 0, 19) do |n_1, n_2|
     #   game_objects << SpielElement.new(n_1, n_2, repo: self)
     # end
-    build_wall(0, 0, 0, 19)
-    build_wall(19, 19, 0, 19)
-    build_wall(0, 19, 0, 0)
-    build_wall(0, 19, 19, 19)
+    build_wall(0, 0, 0, (WIDTH / TILESIZE) - 1)
+    build_wall((WIDTH / TILESIZE) - 1, (WIDTH / TILESIZE) - 1, 0, (WIDTH / TILESIZE) - 1)
+    build_wall(0, (WIDTH / TILESIZE) - 1, 0, 0)
+    build_wall(0, (WIDTH / TILESIZE) - 1, (WIDTH / TILESIZE) - 1, (WIDTH / TILESIZE) - 1)
   end
 
   def mouse_cord(x)

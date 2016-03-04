@@ -5,7 +5,7 @@ class Spieler < SpielElement
   end
 
   def call
-    dreh_links! unless vor!
+    dreh_links! rand(3) unless vor!
   end
 
   def vor!
