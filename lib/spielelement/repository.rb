@@ -56,10 +56,10 @@ class SpielElementRepository
     # iterate_field(0, 0, 0, 19) do |n_1, n_2|
     #   game_objects << SpielElement.new(n_1, n_2, repo: self)
     # end
-    build_wall(0, 0, 0, (WIDTH / TILESIZE) - 1)
-    build_wall((WIDTH / TILESIZE) - 1, (WIDTH / TILESIZE) - 1, 0, (WIDTH / TILESIZE) - 1)
-    build_wall(0, (WIDTH / TILESIZE) - 1, 0, 0)
-    build_wall(0, (WIDTH / TILESIZE) - 1, (WIDTH / TILESIZE) - 1, (WIDTH / TILESIZE) - 1)
+    build_wall(0, 0, 0, ROWS_ON_SCREEN - 1)
+    build_wall(ROWS_ON_SCREEN - 1, ROWS_ON_SCREEN - 1, 0, ROWS_ON_SCREEN - 1)
+    build_wall(0, ROWS_ON_SCREEN - 1, 0, 0)
+    build_wall(0, ROWS_ON_SCREEN - 1, ROWS_ON_SCREEN - 1, ROWS_ON_SCREEN - 1)
   end
 
   def mouse_cord(x)

@@ -1,10 +1,11 @@
 require 'bundler/setup'
 require 'berufsorientierungstag/version'
 
-TILESIZE = 20
+TILESIZE = 40
 BORDER = TILESIZE / 2
 WIDTH = 800
 HEIGHT = 800
+ROWS_ON_SCREEN = WIDTH / TILESIZE
 module Berufsorientierungstag
   require 'gosu'
   require 'spielelement/spielelement'
