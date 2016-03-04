@@ -17,7 +17,7 @@ class SpielElementRepository
 
   def import_map(path)
     init_walls
-    walls = JSON.parse(File.read(path))['walls']
+    walls = JSON.parse(File.read(path))
     walls.each do |wall|
       game_objects << SpielElement.new(wall['x'], wall['y'], repo: self)
     end
@@ -31,8 +31,9 @@ class SpielElementRepository
       next if object.class != SpielElement
       arr << { x: object.x_pos, y: object.y_pos }
     end
-    file = File.open("#{path}#{Time.now}_map.json", 'w+')
+    file = File.open("#{path}#{Time.now.to_i}_map.json", 'w+')
     file.write(JSON.pretty_generate(arr, object_nl: ''))
+    puts "saved: #{file.inspect}"
     file.close
   end
 
