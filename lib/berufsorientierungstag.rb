@@ -16,7 +16,7 @@ module Berufsorientierungstag
       @repo = SpielElementRepository.new
       @repo.import_map('maps/test.json')
       # TODO: Refactor class so that the repo stores player inside own var
-      @repo.game_objects << @spieler = Spieler.new(1, 1, repo: @repo)
+      @spieler = Spieler.new(1, 1, repo: @repo)
       # @repo.export_map('maps/')
     end
 
@@ -32,9 +32,10 @@ module Berufsorientierungstag
           @repo.edit_mouse_click(mouse_x, mouse_y)
         elsif Gosu.button_down?(Gosu::MsRight)
           @repo.edit_mouse_click_right(mouse_x, mouse_y)
+        elsif Gosu.button_down?(Gosu::KbS)
         end
       else
-        @spieler.call
+        @spieler.each.call
       end
     end
 
