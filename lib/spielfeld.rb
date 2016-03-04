@@ -1,5 +1,5 @@
 require 'json'
-class SpielElementRepository
+class Spielfeld
   attr_accessor :feld, :game_objects, :players
   def initialize
     self.feld = Array.new(20) { Array.new(20, nil) }
