@@ -32,10 +32,7 @@ class Spielfeld
       next if object.class != SpielElement
       arr << { x: object.x_pos, y: object.y_pos }
     end
-    file = File.open("#{path}#{Time.now.to_i}_map.json", 'w+')
-    file.write(JSON.pretty_generate(arr, object_nl: ''))
-    puts "saved: #{file.inspect}"
-    file.close
+    write_to_file(path, arr)
   end
 
   def draw_all
@@ -60,6 +57,13 @@ class Spielfeld
     build_wall(ROWS_ON_SCREEN - 1, ROWS_ON_SCREEN - 1, 0, ROWS_ON_SCREEN - 1)
     build_wall(0, ROWS_ON_SCREEN - 1, 0, 0)
     build_wall(0, ROWS_ON_SCREEN - 1, ROWS_ON_SCREEN - 1, ROWS_ON_SCREEN - 1)
+  end
+
+  def write_to_file(path, arr)
+    file = File.open("#{path}#{Time.now.to_i}_map.json", 'w+')
+    file.write(JSON.pretty_generate(arr, object_nl: ''))
+    puts "saved: #{file.inspect}"
+    file.close
   end
 
   def mouse_cord(x)

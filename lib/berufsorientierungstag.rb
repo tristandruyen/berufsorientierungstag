@@ -35,10 +35,13 @@ module Berufsorientierungstag
     #   end
     #   (@repo.players << @spielerarr).flatten!
     # end
-    #
+
     def update
       @edit_mode = !@edit_mode if Gosu.button_down?(Gosu::KbE)
+      handle_keyboard_input
+    end
 
+    def handle_keyboard_input
       if @edit_mode
         if Gosu.button_down?(Gosu::MsLeft)
           @repo.edit_mouse_click(mouse_x, mouse_y)
