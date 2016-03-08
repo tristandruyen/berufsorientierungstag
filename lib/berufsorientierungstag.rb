@@ -2,7 +2,6 @@ require 'bundler/setup'
 require 'berufsorientierungstag/version'
 require_relative '../bots/template_bot.rb'
 
-
 TILESIZE = 40
 BORDER = TILESIZE / 2
 WIDTH = 800
@@ -18,25 +17,14 @@ module Berufsorientierungstag
     def initialize
       super(800, 800)
       self.caption = 'Invision BOT'
-      @repo = Spielfeld.new
-      @repo.import_map('maps/default_map.json')
-      # TODO: Refactor class so that the repo stores player inside own var
-      @repo.players << @spieler = Spieler.new(1, 1, repo: @repo)
-      # @repo.export_map('maps/')
+      @spielfeld = Spielfeld.new
+      @spielfeld.import_map('maps/default_map.json')
+      @spielfeld.add_player(1, 1)
     end
 
     def needs_cursor?
       @edit_mode
     end
-
-    # def please_delete_me
-    #   @edit_mode = true
-    #   @spielerarr = []
-    #   (3..800).each do |_i|
-    #     @spielerarr << Spieler.new(rand(3...80), rand(3...80), repo: @repo)
-    #   end
-    #   (@repo.players << @spielerarr).flatten!
-    # end
 
     def update
       @edit_mode = !@edit_mode if Gosu.button_down?(Gosu::KbE)
@@ -46,19 +34,19 @@ module Berufsorientierungstag
     def handle_keyboard_input
       if @edit_mode
         if Gosu.button_down?(Gosu::MsLeft)
-          @repo.edit_mouse_click(mouse_x, mouse_y)
+          @spielfeld.edit_mouse_click(mouse_x, mouse_y)
         elsif Gosu.button_down?(Gosu::MsRight)
-          @repo.edit_mouse_click_right(mouse_x, mouse_y)
+          @spielfeld.edit_mouse_click_right(mouse_x, mouse_y)
         elsif Gosu.button_down?(Gosu::KbS)
-          @repo.export_map('maps/')
+          @spielfeld.export_map('maps/')
         end
       else
-        @spieler.call
+        @spielfeld.call_all
       end
     end
 
     def draw
-      @repo.draw_all
+      @spielfeld.draw_all
     end
   end
 

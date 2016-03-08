@@ -4,7 +4,6 @@ class Spielfeld
   def initialize
     self.feld = Array.new(20) { Array.new(20, nil) }
     self.players = []
-    # TODO: Refactor class so that the repo stores player inside own var
     init_walls
   end
 
@@ -40,10 +39,18 @@ class Spielfeld
     players.each(&:draw)
   end
 
+  def call_all
+    players.each(&:call)
+  end
+
   def build_wall(x1, x2, y1, y2)
     iterate_field(x1, x2, y1, y2) do |n_1, n_2|
       build_block(n_1, n_2)
     end
+  end
+
+  def add_player(x = 1, y = 1)
+    players << Spieler.new(x, y, repo: self)
   end
 
   private
@@ -78,8 +85,7 @@ class Spielfeld
   end
 
   def build_block(x, y)
-    game_objects << SpielElement.new(x, y, repo: self) \
-      unless block_exists?(x, y)
+    game_objects << SpielElement.new(x, y, repo: self) unless block_exists? x, y
   end
 
   def remove_block(x, y)
