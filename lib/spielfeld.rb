@@ -16,10 +16,10 @@ class Spielfeld
   end
 
   def import_map(path)
-    init_walls
-    walls = JSON.parse(File.read(path))
+    import = JSON.parse(File.read(path))
+    walls = import['walls']
     walls.each do |wall|
-      game_objects << SpielElement.new(wall['x'], wall['y'], repo: self)
+      build_block(wall['x'], wall['y'])
     end
     # require 'pry'
     # binding.pry
@@ -31,7 +31,8 @@ class Spielfeld
       next if object.class != SpielElement
       arr << { x: object.x_pos, y: object.y_pos }
     end
-    write_to_file(path, arr)
+    export = { walls: arr }
+    write_to_file(path, export)
   end
 
   def draw_all

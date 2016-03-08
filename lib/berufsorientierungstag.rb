@@ -27,22 +27,26 @@ module Berufsorientierungstag
     end
 
     def update
-      @edit_mode = !@edit_mode if Gosu.button_down?(Gosu::KbE)
       handle_keyboard_input
+      handle_game_state
     end
 
+    # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
     def handle_keyboard_input
-      if @edit_mode
-        if Gosu.button_down?(Gosu::MsLeft)
-          @spielfeld.edit_mouse_click(mouse_x, mouse_y)
-        elsif Gosu.button_down?(Gosu::MsRight)
-          @spielfeld.edit_mouse_click_right(mouse_x, mouse_y)
-        elsif Gosu.button_down?(Gosu::KbS)
-          @spielfeld.export_map('maps/')
-        end
-      else
-        @spielfeld.call_all
+      if Gosu.button_down?(Gosu::MsLeft)
+        @spielfeld.edit_mouse_click(mouse_x, mouse_y) if @edit_mode
+      elsif Gosu.button_down?(Gosu::MsRight)
+        @spielfeld.edit_mouse_click_right(mouse_x, mouse_y) if @edit_mode
+      elsif Gosu.button_down?(Gosu::KbS)
+        @spielfeld.export_map('maps/') if @edit_mode
+      elsif Gosu.button_down?(Gosu::KbE)
+        @edit_mode = !@edit_mode
       end
+    end
+    # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+
+    def handle_game_state
+      @spielfeld.call_all unless @edit_mode
     end
 
     def draw
