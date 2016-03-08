@@ -1,11 +1,8 @@
 class Spieler < SpielElement
+  include TemplateBot
   def initialize(*args)
     super(*args)
     @angle = 0
-  end
-
-  def call
-    dreh_links! rand(3) unless vor!
   end
 
   def vor!
@@ -27,6 +24,23 @@ class Spieler < SpielElement
   def dreh_rechts!(times = 1)
     @angle += 90 * times
     @angle %= 360
+  end
+
+  # ALIASES##################################
+  def vor(*args)
+    vor!(*args)
+  end
+
+  def vorne_frei(*args)
+    vorne_frei?(*args)
+  end
+
+  def dreh_links(*args)
+    drehe_links!(*args)
+  end
+
+  def dreh_rechts(*args)
+    dreh_rechts!(*args)
   end
 
   private

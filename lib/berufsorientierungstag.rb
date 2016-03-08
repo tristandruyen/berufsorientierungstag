@@ -1,5 +1,7 @@
 require 'bundler/setup'
 require 'berufsorientierungstag/version'
+require_relative '../bots/template_bot.rb'
+
 
 TILESIZE = 40
 BORDER = TILESIZE / 2
