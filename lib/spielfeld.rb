@@ -5,6 +5,7 @@ class Spielfeld
     self.feld = Array.new(20) { Array.new(20, nil) }
     self.players = []
     init_walls
+    add_player(1, 1)
   end
 
   def edit_mouse_click(x, y)

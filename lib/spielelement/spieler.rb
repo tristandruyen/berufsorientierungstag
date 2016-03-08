@@ -36,7 +36,7 @@ class Spieler < SpielElement
   end
 
   def dreh_links(*args)
-    drehe_links!(*args)
+    dreh_links!(*args)
   end
 
   def dreh_rechts(*args)
