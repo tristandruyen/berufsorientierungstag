@@ -8,6 +8,7 @@ module Input
     when Gosu::KbE
       @spielfeld.toggle_edit
     when Gosu::KbN
+      @spielfeld = Spielfeld.new
       @spielfeld.import_map(@maps.first)
       @maps.rotate!
     when Gosu::KbC

@@ -32,16 +32,18 @@ class Spielfeld
   end
 
   def import_map(path)
-    game_objects.each do |object|
-      remove_block(object.x_pos,object.y_pos)
+    1.times do |t|
+      game_objects.each do |object|
+        puts t
+        game_objects.delete(object)
+      end
     end
+    p game_objects
     import = JSON.parse(File.read(path))
     walls = import['walls']
     walls.each do |wall|
       build_block(wall['x'], wall['y'])
     end
-    # require 'pry'
-    # binding.pry
   end
 
   def export_map(path)
@@ -79,10 +81,10 @@ class Spielfeld
 
   def checkwin
     players.each do |player|
-    if player.x_pos == @zielx && player.y_pos == @ziely
-      import_map('maps/you_won.json')
-      return true
-    end
+      if player.x_pos == @zielx && player.y_pos == @ziely
+        import_map('maps/you_won.json')
+        return true
+      end
     end
     false
   end
@@ -123,7 +125,7 @@ class Spielfeld
   def remove_block(x, y)
     game_objects.each do |object|
       game_objects.delete(object) if x.eql?(object.x_pos) &&
-                                     y.eql?(object.y_pos)
+        y.eql?(object.y_pos)
     end
   end
 

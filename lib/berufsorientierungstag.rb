@@ -26,9 +26,9 @@ module Berufsorientierungstag
       end
       p @maps
       @spielfeld = Spielfeld.new
-      # @spielfeld.import_map('maps/default.json')
-      @spielfeld.import_map(@maps[0])
-      @speed = 1
+      @spielfeld.import_map('maps/default_map.json')
+      # @spielfeld.import_map(@maps[0])
+      @speed = 5
     end
 
     def needs_cursor?
