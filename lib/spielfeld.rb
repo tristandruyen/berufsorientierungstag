@@ -40,6 +40,9 @@ class Spielfeld
     walls.each do |wall|
       build_block(wall['x'], wall['y'])
     end
+    return nil unless import['target']
+    @zielx=import['target']['x']
+    @ziely=import['target']['y']
   end
 
   def export_map(path)
@@ -48,7 +51,7 @@ class Spielfeld
       next if object.class != SpielElement
       arr << { x: object.x_pos, y: object.y_pos }
     end
-    export = { walls: arr }
+    export = { walls: arr, target: {x: @zielx, y:@ziely}}
     write_to_file(path, export)
   end
 
