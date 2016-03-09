@@ -1,6 +1,6 @@
 require 'bundler/setup'
 require 'berufsorientierungstag/version'
-require_relative '../bots/template_bot.rb'
+# require_relative '../bots/template_bot.rb'
 
 TILESIZE = 40
 BORDER = TILESIZE / 2
@@ -19,16 +19,15 @@ module Berufsorientierungstag
     def initialize
       super(800, 800)
       self.caption = 'Invision BOT'
-      @maps=[]
+      @maps = []
       Dir['maps/*map.json'].each do |item|
         next if item == '.' || item == '..'
         @maps << item
       end
-      p @maps
       @spielfeld = Spielfeld.new
       @spielfeld.import_map('maps/default_map.json')
       # @spielfeld.import_map(@maps[0])
-      @speed = 5
+      @speed = 1
     end
 
     def needs_cursor?

@@ -1,5 +1,4 @@
 class Spieler < SpielElement
-  include TemplateBot
   def initialize(*args)
     super(*args)
     @angle = 0
@@ -7,6 +6,19 @@ class Spieler < SpielElement
   end
 
   def init
+    @file = File.read('bots/template_bot.rb')
+    @file.gsub!(/\r\n?/, "\n")
+    @line_count = File.foreach('bots/template_bot.rb').inject(0) { |c, _line| c + 1 }
+  end
+
+  def call
+    @line_num ||= 0
+    line = IO.readlines('bots/template_bot.rb')[@line_num]
+    proc = proc {}
+    eval(line, proc.binding, '') if line
+
+    @line_num += 1
+    @line_num %= @line_count
   end
 
   def vor!
@@ -64,16 +76,16 @@ class Spieler < SpielElement
 
   attr_reader :angle
 
-  def init_sprite # rubocop:disable all
-    @sprite = Gosu.record(TILESIZE, TILESIZE) do
-      Gosu.draw_rect(TILESIZE / 10, TILESIZE / 10,
-                     TILESIZE * 7 / 10, TILESIZE * 9 / 10,
-                     random_color)
-      draw_triangle(TILESIZE / 10, TILESIZE / 10, random_color,
-                    TILESIZE * 9 / 10, TILESIZE / 2, random_color,
-                    TILESIZE / 10, TILESIZE + 9 / 10, random_color)
+    def init_sprite # rubocop:disable all
+      @sprite = Gosu.record(TILESIZE, TILESIZE) do
+        Gosu.draw_rect(TILESIZE / 10, TILESIZE / 10,
+                       TILESIZE * 7 / 10, TILESIZE * 9 / 10,
+                       random_color)
+        draw_triangle(TILESIZE / 10, TILESIZE / 10, random_color,
+                      TILESIZE * 9 / 10, TILESIZE / 2, random_color,
+                      TILESIZE / 10, TILESIZE + 9 / 10, random_color)
+      end
     end
-  end
 
   # rubocop:disable Metrics/ParameterLists
   def draw_triangle(x1, y1, c1, x2, y2, c2, x3, y3, c3)
@@ -91,4 +103,4 @@ class Spieler < SpielElement
     end
     [x_pos + x_mov, y_pos + y_mov]
   end
-end
+  end

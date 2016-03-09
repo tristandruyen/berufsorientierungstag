@@ -32,13 +32,9 @@ class Spielfeld
   end
 
   def import_map(path)
-    1.times do |t|
-      game_objects.each do |object|
-        puts t
-        game_objects.delete(object)
-      end
+    game_objects.each do |object|
+      game_objects.delete(object)
     end
-    p game_objects
     import = JSON.parse(File.read(path))
     walls = import['walls']
     walls.each do |wall|
@@ -125,7 +121,7 @@ class Spielfeld
   def remove_block(x, y)
     game_objects.each do |object|
       game_objects.delete(object) if x.eql?(object.x_pos) &&
-        y.eql?(object.y_pos)
+                                     y.eql?(object.y_pos)
     end
   end
 
