@@ -82,6 +82,7 @@ class Spielfeld
     players.each do |player|
       if player.x_pos == @zielx && player.y_pos == @ziely
         import_map('maps/you_won.json')
+        toggle_edit
         return true
       end
     end
