@@ -22,7 +22,7 @@ module Berufsorientierungstag
       @spielfeld = Spielfeld.new
       # @spielfeld.import_map('maps/default_map.json')
       @spielfeld.import_map('maps/bot_hard1_map.json')
-      @speed = 5
+      @speed = 1
     end
 
     def needs_cursor?
@@ -34,7 +34,7 @@ module Berufsorientierungstag
     end
 
     def handle_game_state
-      every_n_times(5) do
+      every_n_times(@speed) do
         @spielfeld.call_all
       end unless @edit_mode
     end

@@ -3,6 +3,7 @@ class Spieler < SpielElement
   def initialize(*args)
     super(*args)
     @angle = 0
+    @feld ||= Array.new(20) { Array.new(20) { { in: Set.new, out: Set.new } } }
   end
 
   def vor!
@@ -25,6 +26,20 @@ class Spieler < SpielElement
     @angle += 90 * times
     @angle %= 360
   end
+
+  def richtung
+    @angle
+  end
+
+  def speicher
+    @feld[x_pos][y_pos]
+  end
+
+  def speicher=(value)
+    value %= 360
+    @feld[x_pos][y_pos] = value unless @feld[x_pos][y_pos].include?(value)
+  end
+
 
   # ALIASES##################################
   def vor(*args)

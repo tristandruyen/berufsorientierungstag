@@ -1,8 +1,7 @@
 require 'json'
 class Spielfeld
-  attr_accessor :feld, :game_objects, :players
+  attr_accessor :game_objects, :players
   def initialize
-    self.feld = Array.new(20) { Array.new(20, nil) }
     self.players = []
     init_walls
     add_player(1, 1)
@@ -53,6 +52,7 @@ class Spielfeld
 
   def add_player(x = 1, y = 1)
     players << Spieler.new(x, y, repo: self)
+    players.last.init
   end
 
   private
