@@ -1,10 +1,26 @@
 require 'json'
 class Spielfeld
   attr_accessor :game_objects, :players
-  def initialize
+  def initialize(zielx = 18, ziely = 18)
     self.players = []
     init_walls
     add_player(1, 1)
+    @zielx = zielx
+    @ziely = ziely
+  end
+
+  def editable?
+    @edit_mode
+  end
+
+  def toggle_edit
+    @edit_mode = !@edit_mode
+  end
+
+  def target_mouse_click(x, y)
+    return false unless @edit_mode
+    @zielx = mouse_cord(x)
+    @ziely = mouse_cord(y)
   end
 
   def edit_mouse_click(x, y)
@@ -16,6 +32,9 @@ class Spielfeld
   end
 
   def import_map(path)
+    game_objects.each do |object|
+      remove_block(object.x_pos,object.y_pos)
+    end
     import = JSON.parse(File.read(path))
     walls = import['walls']
     walls.each do |wall|
@@ -41,7 +60,8 @@ class Spielfeld
   end
 
   def call_all
-    players.each(&:call)
+    checkwin
+    players.each(&:call) unless @edit_mode
   end
 
   def build_wall(x1, x2, y1, y2)
@@ -56,6 +76,16 @@ class Spielfeld
   end
 
   private
+
+  def checkwin
+    players.each do |player|
+    if player.x_pos == @zielx && player.y_pos == @ziely
+      import_map('maps/you_won.json')
+      return true
+    end
+    end
+    false
+  end
 
   def init_walls
     self.game_objects = []

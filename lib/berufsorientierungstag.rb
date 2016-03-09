@@ -19,18 +19,27 @@ module Berufsorientierungstag
     def initialize
       super(800, 800)
       self.caption = 'Invision BOT'
+      @maps=[]
+      Dir['maps/*map.json'].each do |item|
+        next if item == '.' || item == '..'
+        @maps << item
+      end
+      p @maps
       @spielfeld = Spielfeld.new
-      # @spielfeld.import_map('maps/default_map.json')
-      @spielfeld.import_map('maps/bot_hard1_map.json')
+      # @spielfeld.import_map('maps/default.json')
+      @spielfeld.import_map(@maps[0])
       @speed = 1
     end
 
     def needs_cursor?
-      @edit_mode
+      @spielfeld.editable?
     end
 
     def update
       handle_game_state
+      if button_down?(Gosu::MsLeft)
+        @spielfeld.edit_mouse_click(mouse_x, mouse_y)
+      end
     end
 
     def handle_game_state
