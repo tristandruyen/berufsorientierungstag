@@ -6,6 +6,9 @@ class Spieler < SpielElement
     @feld ||= Array.new(20) { Array.new(20) { { in: Set.new, out: Set.new } } }
   end
 
+  def init
+  end
+
   def vor!
     self.x_pos, self.y_pos = next_pos if vorne_frei?
   end
