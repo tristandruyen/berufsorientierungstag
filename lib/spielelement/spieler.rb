@@ -40,7 +40,6 @@ class Spieler < SpielElement
     @feld[x_pos][y_pos] = value unless @feld[x_pos][y_pos].include?(value)
   end
 
-
   # ALIASES##################################
   def vor(*args)
     vor!(*args)

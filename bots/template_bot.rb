@@ -11,9 +11,9 @@ module TemplateBot
     # V        V      V
     pp speicher
     speicher[:in] << richtung
-    if speicher[:in].include?((richtung - 90) %360) &&
+    if speicher[:in].include?((richtung - 90) % 360) &&
        speicher[:out].include?((richtung - 90) % 360) &&
-      vor!
+       vor!
       puts 'rechts'
     elsif speicher[:in] != []
       linksgeher
@@ -21,19 +21,9 @@ module TemplateBot
     pp speicher
     speicher[:out] << richtung
     vor!
-    # out
     # A        A      A
     # l        l      l
     ##################################################
-  end
-
-  def speicher
-    @feld[x_pos][y_pos]
-  end
-
-  def speicher=(value)
-    value %= 360
-    @feld[x_pos][y_pos] = value unless @feld[x_pos][y_pos].include?(value)
   end
 
   def linksgeher
@@ -48,11 +38,5 @@ module TemplateBot
     return nil if vorne_frei?
     dreh_rechts!
     dreh_rechts! unless vorne_frei?
-  end
-
-  def out
-    @feld.each do |row|
-      p row
-    end
   end
 end
