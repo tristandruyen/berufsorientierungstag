@@ -27,7 +27,7 @@ module Berufsorientierungstag
       @spielfeld = Spielfeld.new
       @spielfeld.import_map('maps/default_map.json')
       # @spielfeld.import_map(@maps[0])
-      @speed = 3
+      @speed = 2
     end
 
     def needs_cursor?
@@ -36,14 +36,16 @@ module Berufsorientierungstag
 
     def update
       handle_game_state
-      if button_down?(Gosu::MsLeft)
-        @spielfeld.edit_mouse_click(mouse_x, mouse_y)
-      end
     end
 
     def handle_game_state
       every_n_times(@speed) do
         @spielfeld.call_all
+        if @spielfeld.checkwin
+          @spielfeld = Spielfeld.new
+          @spielfeld.import_map('maps/you_won.json')
+          @spielfeld.toggle_edit
+        end
       end unless @edit_mode
     end
 

@@ -24,11 +24,11 @@ class Spielfeld
   end
 
   def edit_mouse_click(x, y)
-    build_block(mouse_cord(x).to_i, mouse_cord(y).to_i)
+    build_block(mouse_cord(x).to_i, mouse_cord(y).to_i) if @edit_mode
   end
 
   def edit_mouse_click_right(x, y)
-    remove_block(mouse_cord(x).to_i, mouse_cord(y).to_i)
+    remove_block(mouse_cord(x).to_i, mouse_cord(y).to_i) if @edit_mode
   end
 
   def import_map(path)
@@ -41,8 +41,8 @@ class Spielfeld
       build_block(wall['x'], wall['y'])
     end
     return nil unless import['target']
-    @zielx=import['target']['x']
-    @ziely=import['target']['y']
+    @zielx = import['target']['x']
+    @ziely = import['target']['y']
   end
 
   def export_map(path)
@@ -51,7 +51,7 @@ class Spielfeld
       next if object.class != SpielElement
       arr << { x: object.x_pos, y: object.y_pos }
     end
-    export = { walls: arr, target: {x: @zielx, y:@ziely}}
+    export = { walls: arr, target: { x: @zielx, y: @ziely } }
     write_to_file(path, export)
   end
 
@@ -61,7 +61,6 @@ class Spielfeld
   end
 
   def call_all
-    checkwin
     players.each(&:call) unless @edit_mode
   end
 
@@ -76,18 +75,15 @@ class Spielfeld
     players.last.init
   end
 
-  private
-
   def checkwin
     players.each do |player|
-      if player.x_pos == @zielx && player.y_pos == @ziely
-        import_map('maps/you_won.json')
-        toggle_edit
-        return true
-      end
+      next unless player.x_pos == @zielx && player.y_pos == @ziely
+      return true
     end
     false
   end
+
+  private
 
   def init_walls
     self.game_objects = []
