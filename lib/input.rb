@@ -5,6 +5,8 @@ module Input
       @spielfeld.export_map('maps/')
     when Gosu::KbE
       @spielfeld.toggle_edit
+    when Gosu::KbReturn
+      @spielfeld.toggle_edit
     when Gosu::KbN
       @spielfeld = Spielfeld.new
       @spielfeld.import_map(@maps.first)
