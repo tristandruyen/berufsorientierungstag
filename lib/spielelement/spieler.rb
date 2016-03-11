@@ -9,6 +9,10 @@ class Spieler < SpielElement
                       .inject(0) { |a, _e| a + 1 }
   end
 
+  def wiederholen
+    @wiederholen=true
+  end
+
   def call # rubocop:disable all
     @line_num ||= 0
     line = IO.readlines('bots/template_bot.rb')[@line_num]
@@ -28,7 +32,7 @@ class Spieler < SpielElement
       @error = nil
     end
     @line_num += 1
-    @line_num %= @line_count
+    @line_num %= @line_count if @wiederholen
   end
 
   def vor!
