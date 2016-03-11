@@ -6,7 +6,7 @@ class Spieler < SpielElement
 
   def init
     @line_count = File.foreach('bots/template_bot.rb')
-                      .inject(0) { |a, _e| a + 1 }
+    .inject(0) { |a, _e| a + 1 }
   end
 
   def call
@@ -17,12 +17,15 @@ class Spieler < SpielElement
       eval(line, proc.binding, '') if line # rubocop:disable all
     rescue SyntaxError
       @line_num += 1
+      @error||= @line_num
       begin
         line << IO.readlines('bots/template_bot.rb')[@line_num]
       rescue Exception # rubocop:disable all
-        abort 'Das Programm ist fehlerhaft'
+        abort "Das Programm hat in Zeile #{@error} fehlerhaft"
       end
       retry
+    ensure
+      @error=nil
     end
     @line_num += 1
     @line_num %= @line_count
