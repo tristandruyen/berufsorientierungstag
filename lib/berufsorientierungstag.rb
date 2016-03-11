@@ -25,7 +25,8 @@ module Berufsorientierungstag
         @maps << item
       end
       @spielfeld = Spielfeld.new
-      @spielfeld.import_map('maps/default_map.json')
+      @spielfeld.import_map(@maps.first)
+      @maps.rotate!
       # @spielfeld.import_map(@maps[0])
       @speed = 2
     end

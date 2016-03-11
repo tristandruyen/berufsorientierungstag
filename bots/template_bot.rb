@@ -1,4 +1,0 @@
-dreh_rechts!
-dreh_links! unless vorne_frei?
-dreh_links! unless vorne_frei?
-vor if vorne_frei?
