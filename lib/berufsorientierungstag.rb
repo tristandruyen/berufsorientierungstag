@@ -25,6 +25,7 @@ module Berufsorientierungstag
         @maps << item
       end
       @spielfeld = Spielfeld.new
+      @maps.rotate! ARGV[0].to_i if ARGV[0]
       @spielfeld.import_map(@maps.first)
       @maps.rotate!
       # @spielfeld.import_map(@maps[0])
