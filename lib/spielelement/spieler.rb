@@ -1,7 +1,9 @@
 class Spieler < SpielElement
+  attr_accessor :steps
   def initialize(*args)
     super(*args)
     @angle = 0
+    @steps = 0
   end
 
   def init
@@ -36,6 +38,7 @@ class Spieler < SpielElement
   end
 
   def vor!
+    self.steps += 1
     self.x_pos, self.y_pos = next_pos if vorne_frei?
   end
 

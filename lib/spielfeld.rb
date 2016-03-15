@@ -78,6 +78,7 @@ class Spielfeld
   def checkwin
     players.each do |player|
       next unless player.x_pos == @zielx && player.y_pos == @ziely
+      puts "Schritte: #{player.steps}"
       return true
     end
     false
