@@ -12,7 +12,7 @@ class Spieler < SpielElement
   end
 
   def wiederholen
-    @wiederholen=true
+    @wiederholen = true
   end
 
   def call # rubocop:disable all
@@ -85,7 +85,15 @@ class Spieler < SpielElement
     dreh_links!(*args)
   end
 
+  def drehe_links(*args)
+    dreh_links!(*args)
+  end
+
   def dreh_rechts(*args)
+    dreh_rechts!(*args)
+  end
+
+  def drehe_rechts(*args)
     dreh_rechts!(*args)
   end
 
