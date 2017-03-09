@@ -15,7 +15,7 @@ module Input
       @spielfeld = Spielfeld.new
       @spielfeld.import_map(@maps.last)
     when Gosu::KbP
-      @maps.rotate! -1
+      @maps.rotate!(-1)
       @spielfeld = Spielfeld.new
       @spielfeld.import_map(@maps.last)
       # when Gosu::MsLeft
