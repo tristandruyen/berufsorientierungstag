@@ -1,9 +1,12 @@
+# frozen_string_literal: true
 class Spieler < SpielElement
-  attr_accessor :steps
+  attr_accessor :steps, :feld
   def initialize(*args)
     super(*args)
     @angle = 0
     @steps = 0
+    @feld = Array.new(20) { Array.new(20) { false } }
+    @farbe_trigger = false
   end
 
   def init
@@ -15,7 +18,7 @@ class Spieler < SpielElement
     @wiederholen = true
   end
 
-  def call # rubocop:disable all
+  def call
     @line_num ||= 0
     line = IO.readlines('bots/template_bot.rb')[@line_num]
     proc = proc {}
@@ -97,11 +100,31 @@ class Spieler < SpielElement
     dreh_rechts!(*args)
   end
 
+  def set_feld(val)
+    @feld.map { |row| row.map { val } }
+  end
+
+  def markiere_vorne
+    feld[next_pos.first][next_pos.last] = !@farbe_trigger
+  end
+
+  def vorne_markiert?
+    feld[next_pos.first][next_pos.last] != @farbe_trigger
+  end
+
+  def wechsle_marker_farbe
+    @farbe_trigger = !@farbe_trigger
+  end
+
+  def marker_farbe?
+    @farbe_trigger
+  end
+
   private
 
   attr_reader :angle
 
-  def init_sprite # rubocop:disable all
+  def init_sprite
     @sprite = Gosu.record(TILESIZE, TILESIZE) do
       Gosu.draw_rect(TILESIZE / 10, TILESIZE / 10,
                      TILESIZE * 7 / 10, TILESIZE * 9 / 10,
