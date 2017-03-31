@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'berufsorientierungstag/version'
+require 'config'
 # require_relative '../bots/template_bot.rb'
 
 TILESIZE = 40
@@ -17,8 +18,11 @@ module Berufsorientierungstag
   class MainWindow < Gosu::Window
     include Input
     def initialize
+      config = Config.config_hash
       super(800, 800)
-      self.caption = 'Invision BOT'
+      full_name = config['first_name'] + ' ' + config['last_name']
+      computer_number = "PC #{config['computer_number']}"
+      self.caption = "Invision BOT - #{full_name} an #{computer_number}"
       @maps = []
       Dir['maps/*map.json'].each do |item|
         next if item == '.' || item == '..'
